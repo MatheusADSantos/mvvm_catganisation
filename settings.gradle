@@ -7,12 +7,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Catganisation"
-
 include ':app'
-//Libraries
-include ':libraries:navigation'
-include ':libraries:core'
-include ':libraries:uishared'
-//Features
-include ':features:login'
-include ':features:home'
