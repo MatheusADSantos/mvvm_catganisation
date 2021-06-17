@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Catganisation</string>
+    <string name="login_error_message">Ops, there is an error on your login</string>
 </resources>

@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -37,9 +38,14 @@ android {
 }
 
 dependencies {
+    //Libraries
     implementation project(path: ':libraries:uishared')
     implementation project(path: ':libraries:navigation')
     implementation project(path: ':libraries:core')
+
+    //Features
+    implementation project(path: ':features:login')
+    implementation project(path: ':features:home')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
@@ -53,4 +59,11 @@ dependencies {
 
     //Square
     implementation "com.jakewharton.timber:timber:$versions.timber"
+
+    //Koin
+    implementation "io.insert-koin:koin-android:$versions.koin"
+
+    //Firebase
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation platform('com.google.firebase:firebase-bom:28.1.0')
 }
