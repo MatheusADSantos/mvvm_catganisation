@@ -1,3 +1,7 @@
 package com.schaefer.navigation.login
 
-interface LoginNavigation
+import androidx.fragment.app.Fragment
+
+interface LoginNavigation{
+    fun getFragment(): Fragment
+}

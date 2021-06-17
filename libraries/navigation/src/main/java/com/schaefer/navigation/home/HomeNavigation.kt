@@ -1,3 +1,7 @@
 package com.schaefer.navigation.home
 
-interface HomeNavigation
+import androidx.fragment.app.Fragment
+
+interface HomeNavigation{
+    fun getFragment(): Fragment
+}
