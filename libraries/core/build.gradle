@@ -4,27 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
 }
-
-android {
-    Properties properties = new Properties()
-    if (rootProject.file("local.properties").exists()) {
-        properties.load(rootProject.file("local.properties").newDataInputStream())
-    }
-
-    buildTypes {
-        debug {
-            buildConfigField 'String', 'BASE_URL', BASE_URL_DEV
-            buildConfigField 'String', 'API_KEY', properties.getProperty("CATS_API_KEY_DEV")
-        }
-
-        release {
-            buildConfigField 'String', 'BASE_URL', BASE_URL_RELEASE
-            buildConfigField 'String', 'API_KEY', properties.getProperty("CATS_API_KEY_RELEASE")
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+apply from: "$rootDir/android.gradle"
 
 dependencies {
     //Android
@@ -43,4 +23,5 @@ dependencies {
 
     //Koin
     implementation "io.insert-koin:koin-android:$versions.koin"
+    implementation 'androidx.databinding:viewbinding:4.1.3'
 }
