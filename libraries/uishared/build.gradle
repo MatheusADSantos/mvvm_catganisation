@@ -2,3 +2,8 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
+apply from: "$rootDir/android.gradle"
+
+dependencies {
+    implementation "com.google.android.material:material:$versions.material"
+}
