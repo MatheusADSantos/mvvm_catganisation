@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_tiny">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_default">16dp</dimen>
+    <dimen name="margin_normal">24dp</dimen>
+    <dimen name="margin_medium">32dp</dimen>
+    <dimen name="margin_large">40dp</dimen>
+    <dimen name="margin_xlarge">48dp</dimen>
+
+    <dimen name="fading_edge_recycler_view">4dp</dimen>
+
+    <dimen name="elevation_default">8dp</dimen>
+
+    <dimen name="radius_card_default">8dp</dimen>
+</resources>

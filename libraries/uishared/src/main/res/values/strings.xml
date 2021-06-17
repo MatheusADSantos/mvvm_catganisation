@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Catganisation</string>
+
+    <!--  Common strings  -->
+    <string name="common_password">Password</string>
+    <string name="common_retry">Retry</string>
+    <string name="common_search">Search</string>
+    <string name="common_email">Email</string>
+    <string name="common_sign_in_short">Sing in</string>
+    <string name="common_sign_in">Sing in or Register</string>
+
+</resources>
