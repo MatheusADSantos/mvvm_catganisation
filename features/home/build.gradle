@@ -2,12 +2,23 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
+apply from: "$rootDir/android.gradle"
+android {
+    buildFeatures {
+        viewBinding true
+    }
+}
 
 dependencies {
+    implementation project(path: ':libraries:navigation')
+    implementation project(path: ':libraries:uishared')
+
     //Android
     implementation "androidx.core:core-ktx:$versions.ktx"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "androidx.fragment:fragment-ktx:$versions.fragment"
     implementation "androidx.activity:activity-ktx:$versions.activity"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
 }
