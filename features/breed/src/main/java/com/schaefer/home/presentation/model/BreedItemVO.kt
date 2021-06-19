@@ -1,5 +1,9 @@
 package com.schaefer.home.presentation.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 internal data class BreedItemVO(
     val adaptability: Int,
     val affection_level: Int,
@@ -41,4 +45,4 @@ internal data class BreedItemVO(
     val vocalisation: Int,
     val weightResponse: WeightVO,
     val wikipedia_url: String
-)
+): Parcelable
