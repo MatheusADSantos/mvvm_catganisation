@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logout_dialog_title">Logout from the app?</string>
+</resources>
