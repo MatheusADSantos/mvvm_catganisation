@@ -7,6 +7,10 @@ import com.schaefer.navigation.login.LoginNavigation
 
 class LoginNavigationImpl: LoginNavigation {
     override fun getFragment(): Fragment {
-        return LoginFragment()
+        return LoginFragment.newInstance()
+    }
+
+    override fun getLogoutFragment(shouldLogout: Boolean): Fragment {
+        return LoginFragment.newInstance(shouldLogout)
     }
 }

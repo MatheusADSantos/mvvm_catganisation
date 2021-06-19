@@ -2,6 +2,7 @@ package com.schaefer.catganisation
 
 import android.app.Application
 import com.schaefer.catganisation.di.appModule
+import com.schaefer.core.di.networkModule
 import com.schaefer.home.di.homeModule
 import com.schaefer.login.di.loginModule
 import org.koin.android.ext.koin.androidContext
@@ -21,6 +22,7 @@ class CatganisationApplication: Application() {
             modules(
                 listOf(
                     appModule,
+                    networkModule,
                     loginModule,
                     homeModule,
                 )

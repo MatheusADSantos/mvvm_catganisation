@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -21,6 +22,8 @@ import com.schaefer.navigation.home.HomeNavigation
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+
+private const val ARG_SHOULD_LOGOUT = "should_logout"
 
 class LoginFragment : Fragment() {
 
@@ -41,7 +44,7 @@ class LoginFragment : Fragment() {
             .build()
     }
 
-    private val googleSignInClient: GoogleSignInClient by lazy{
+    private val googleSignInClient: GoogleSignInClient by lazy {
         GoogleSignIn.getClient(requireActivity(), gso)
     }
 
@@ -59,9 +62,23 @@ class LoginFragment : Fragment() {
             }
         }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+    }
+
     override fun onStart() {
         super.onStart()
-        viewModel.updateUser(auth.currentUser)
+        arguments?.let {
+            if (it.getBoolean(ARG_SHOULD_LOGOUT)) {
+                auth.signOut().also {
+                    viewModel.updateUser(auth.currentUser)
+                }
+            } else {
+                viewModel.updateUser(auth.currentUser)
+            }
+        } ?: viewModel.updateUser(auth.currentUser)
     }
 
     override fun onCreateView(
@@ -84,8 +101,8 @@ class LoginFragment : Fragment() {
     private fun setupObservers() {
         viewModel.action.observe(viewLifecycleOwner) {
             when (it) {
-                LoadingAction.NavigateToHome -> navigateToHome()
-                is LoadingAction.ShowErrorMessage -> TODO()
+                LoginAction.NavigateToHome -> navigateToHome()
+                is LoginAction.ShowErrorMessage -> TODO()
             }
         }
     }
@@ -94,7 +111,7 @@ class LoginFragment : Fragment() {
         parentFragmentManager.beginTransaction()
             .replace(
                 containerSingleActivity.containerId,
-                homeNavigation.getFragment()
+                homeNavigation.getFragment(1)
             )
             .commit()
     }
@@ -108,5 +125,13 @@ class LoginFragment : Fragment() {
 
     private fun signIn() {
         openSignInActivity.launch(googleSignInClient.signInIntent)
+    }
+
+    companion object {
+
+        fun newInstance(shouldLogout: Boolean? = false) =
+            LoginFragment().apply {
+                arguments = bundleOf(ARG_SHOULD_LOGOUT to shouldLogout)
+            }
     }
 }
