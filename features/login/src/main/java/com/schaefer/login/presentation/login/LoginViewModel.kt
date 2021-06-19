@@ -10,8 +10,8 @@ import java.lang.Exception
 
 class LoginViewModel(val resourcesProvider: ResourcesProvider) : ViewModel() {
 
-    private val _action = MutableLiveData<LoadingAction>()
-    val action: LiveData<LoadingAction> = _action
+    private val _action = MutableLiveData<LoginAction>()
+    val action: LiveData<LoginAction> = _action
 
     private val _user = MutableLiveData<FirebaseUser?>()
     val user: LiveData<FirebaseUser?> = _user
@@ -19,20 +19,20 @@ class LoginViewModel(val resourcesProvider: ResourcesProvider) : ViewModel() {
     fun updateUser(firebaseUser: FirebaseUser?) {
         _user.postValue(firebaseUser)
         firebaseUser?.let {
-            _action.postValue(LoadingAction.NavigateToHome)
+            _action.postValue(LoginAction.NavigateToHome)
         }
     }
 
     fun handleTask(isSuccessful: Boolean, exception: Exception?) {
         exception?.let {
             _action.postValue(
-                LoadingAction.ShowErrorMessage(
+                LoginAction.ShowErrorMessage(
                     it.message ?: resourcesProvider.getString(
                         R.string.login_error_message
                     )
                 )
             )
         }
-        isSuccessful.takeIf { it }.let { _action.postValue(LoadingAction.NavigateToHome) }
+        isSuccessful.takeIf { it }.let { _action.postValue(LoginAction.NavigateToHome) }
     }
 }
