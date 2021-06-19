@@ -18,7 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.schaefer.login.R
 import com.schaefer.login.databinding.FragmentLoginBinding
 import com.schaefer.navigation.ContainerSingleActivity
-import com.schaefer.navigation.home.HomeNavigation
+import com.schaefer.navigation.breed.BreedNavigation
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -27,7 +27,7 @@ private const val ARG_SHOULD_LOGOUT = "should_logout"
 
 class LoginFragment : Fragment() {
 
-    private val homeNavigation: HomeNavigation by inject()
+    private val breedNavigation: BreedNavigation by inject()
     private val containerSingleActivity: ContainerSingleActivity by inject()
     private val viewModel: LoginViewModel by viewModel()
 
@@ -111,7 +111,7 @@ class LoginFragment : Fragment() {
         parentFragmentManager.beginTransaction()
             .replace(
                 containerSingleActivity.containerId,
-                homeNavigation.getFragment(1)
+                breedNavigation.getFragment(1)
             )
             .commit()
     }

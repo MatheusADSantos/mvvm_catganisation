@@ -1,7 +1,7 @@
-package com.schaefer.navigation.home
+package com.schaefer.navigation.breed
 
 import androidx.fragment.app.Fragment
 
-interface HomeNavigation{
+interface BreedNavigation{
     fun getFragment(columnCount: Int): Fragment
 }
