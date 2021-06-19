@@ -111,7 +111,7 @@ class LoginFragment : Fragment() {
         parentFragmentManager.beginTransaction()
             .replace(
                 containerSingleActivity.containerId,
-                breedNavigation.getFragment(1)
+                breedNavigation.getBreedListFragment(1)
             )
             .commit()
     }

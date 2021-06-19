@@ -4,34 +4,34 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
-import android.widget.SpinnerAdapter
 import androidx.fragment.app.Fragment
 import com.schaefer.core.extension.layoutManagerFactory
 import com.schaefer.home.R
 import com.schaefer.home.databinding.FragmentBreedListBinding
-import com.schaefer.home.presentation.breedlist.adapter.BreedListRecyclerViewAdapter
+import com.schaefer.home.presentation.breedlist.adapter.BreedListAdapter
 import com.schaefer.home.presentation.model.BreedItemVO
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import com.schaefer.home.presentation.breeddetails.BreedDetailsFragment
 import com.schaefer.navigation.ContainerSingleActivity
+import com.schaefer.navigation.breed.BreedNavigation
 import com.schaefer.navigation.login.LoginNavigation
 import org.koin.android.ext.android.inject
-import java.util.*
-import kotlin.collections.ArrayList
 
-private const val ARG_COLUMN_COUNT = "column-count"
+private const val ARG_COLUMN_COUNT = "column_count"
 
 internal class BreedListFragment : Fragment() {
     private var columnCount = 1
     private val breedListRecyclerViewAdapter by lazy {
-        BreedListRecyclerViewAdapter()
+        BreedListAdapter(::openBreedDetails)
     }
 
     private val breedListViewModel: BreedListViewModel by viewModel()
     private val loginNavigation: LoginNavigation by inject()
+    private val breedNavigation: BreedNavigation by inject()
     private val containerSingleActivity: ContainerSingleActivity by inject()
 
     private lateinit var binding: FragmentBreedListBinding
@@ -69,7 +69,7 @@ internal class BreedListFragment : Fragment() {
                 adapter = breedListRecyclerViewAdapter
             }
 
-            toolbar.inflateMenu(R.menu.home_menu)
+            toolbar.inflateMenu(R.menu.breed_list_menu)
             toolbar.menu.findItem(R.id.action_logout).setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.action_logout -> {
@@ -145,6 +145,18 @@ internal class BreedListFragment : Fragment() {
                 it.getButton(AlertDialog.BUTTON_POSITIVE)
                     .setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
             }
+        }
+    }
+
+    private fun openBreedDetails(itemVO: BreedItemVO){
+        breedNavigation.getBreedDetailsFragment(itemVO)?.let {
+            parentFragmentManager.beginTransaction()
+                .add(
+                    containerSingleActivity.containerId,
+                    it
+                )
+                .addToBackStack(BreedDetailsFragment::class.simpleName)
+                .commit()
         }
     }
 

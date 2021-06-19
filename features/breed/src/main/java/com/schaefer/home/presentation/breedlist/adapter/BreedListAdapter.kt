@@ -10,8 +10,9 @@ import com.schaefer.home.presentation.breedlist.BreedListDiffCallback
 
 import com.schaefer.home.presentation.model.BreedItemVO
 
-internal class BreedListRecyclerViewAdapter :
-    RecyclerView.Adapter<BreedListRecyclerViewAdapter.BreedViewHolder>() {
+internal class BreedListAdapter(
+    val openDetails: (BreedItemVO) -> Unit
+) : RecyclerView.Adapter<BreedListAdapter.BreedViewHolder>() {
 
     var breedList = emptyList<BreedItemVO>()
         set(value) {
@@ -43,6 +44,10 @@ internal class BreedListRecyclerViewAdapter :
                         Glide.with(holder.itemView)
                             .load(breed.imageResponse.url)
                             .into(binding.ivBreedItem)
+
+                        constraintBreedItem.setOnClickListener {
+                            openDetails(breed)
+                        }
                     }
                 }
             }

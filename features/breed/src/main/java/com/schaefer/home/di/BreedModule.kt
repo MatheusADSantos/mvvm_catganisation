@@ -16,7 +16,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
-val BreedModule = module {
+val breedModule = module {
     single<TheCatAPI> {
         get<Retrofit>().create(TheCatAPI::class.java)
     }
