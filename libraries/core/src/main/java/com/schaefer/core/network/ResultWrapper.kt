@@ -6,10 +6,12 @@ sealed class ResultWrapper<out T> {
         val value: T
     ) : ResultWrapper<T>()
 
-    data class GenericError(
+    data class GenericCodeError(
         val code: Int? = null,
         val error: ErrorResponse? = null
     ) : ResultWrapper<Nothing>()
 
-    object NetworkError : ResultWrapper<Nothing>()
+    data class NetworkError(val exception: Throwable) : ResultWrapper<Nothing>()
+
+    data class GenericError(val exception: Throwable) : ResultWrapper<Nothing>()
 }
