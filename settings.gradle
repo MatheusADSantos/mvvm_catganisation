@@ -15,4 +15,4 @@ include ':libraries:core'
 include ':libraries:uishared'
 //Features
 include ':features:login'
-include ':features:home'
+include ':features:breed'
