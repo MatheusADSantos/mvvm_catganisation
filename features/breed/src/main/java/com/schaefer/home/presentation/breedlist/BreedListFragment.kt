@@ -18,6 +18,7 @@ import com.schaefer.home.presentation.model.BreedItemVO
 import com.schaefer.navigation.ContainerSingleActivity
 import com.schaefer.navigation.breed.BreedNavigation
 import com.schaefer.navigation.login.LoginNavigation
+import com.schaefer.uishared.databinding.LayoutErrorBinding
 import hollowsoft.country.Country
 import hollowsoft.country.extension.all
 import org.koin.android.ext.android.inject
@@ -38,6 +39,7 @@ internal class BreedListFragment : Fragment() {
     private val containerSingleActivity: ContainerSingleActivity by inject()
 
     private lateinit var binding: FragmentBreedListBinding
+    private lateinit var bindingError: LayoutErrorBinding
     private lateinit var countryDialogFragment: CountryDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +56,7 @@ internal class BreedListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentBreedListBinding.inflate(inflater, container, false)
+        bindingError = LayoutErrorBinding.bind(binding.root)
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -86,17 +89,23 @@ internal class BreedListFragment : Fragment() {
             editTextBreedListCountry.setOnClickListener {
                 countryDialogFragment = CountryDialogFragment.newInstance { country ->
                     editTextBreedListCountry.setText(country.name)
-                    breedListRecyclerViewAdapter.breedList =
-                        breedListViewModel.filterList(country.id.substring(0, 2))
+                    breedListViewModel.filterList(country.id.substring(0, 2))
                     countryDialogFragment.dismiss()
                 }
-                countryDialogFragment.show(parentFragmentManager, CountryDialogFragment::class.simpleName)
+                countryDialogFragment.show(
+                    parentFragmentManager,
+                    CountryDialogFragment::class.simpleName
+                )
             }
 
             textInputBreedListCountry.setEndIconOnClickListener {
                 editTextBreedListCountry.setText(R.string.common_all)
-                breedListRecyclerViewAdapter.breedList = breedListViewModel.getOriginalList()
+                breedListViewModel.getOriginalList()
             }
+        }
+
+        bindingError.btnRetry.setOnClickListener {
+            breedListViewModel.getBreedList()
         }
     }
 
@@ -110,10 +119,47 @@ internal class BreedListFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        breedListViewModel.breedList.observe(viewLifecycleOwner) { list ->
-            breedListRecyclerViewAdapter.breedList = list
-            binding.rvBreedList.isVisible = true
-            binding.progressBar.isVisible = false
+
+        breedListViewModel.state.observe(viewLifecycleOwner) {
+            when (it) {
+                BreedListState.Loading -> {
+                    with(binding) {
+                        includeLoading.isVisible = true
+
+                        includeError.isVisible = false
+                        nestedScrollView.isVisible = false
+                    }
+                }
+                BreedListState.EmptyList -> {
+                    with(binding) {
+                        nestedScrollView.isVisible = true
+                        includeEmptyList.isVisible = true
+
+                        includeError.isVisible = false
+                        rvBreedList.isVisible = false
+                        includeLoading.isVisible = false
+                    }
+                }
+                BreedListState.Error -> {
+                    with(binding) {
+                        includeError.isVisible = true
+
+                        nestedScrollView.isVisible = false
+                        includeLoading.isVisible = false
+                    }
+                }
+                is BreedListState.HasContent -> {
+                    breedListRecyclerViewAdapter.breedList = it.list
+                    with(binding) {
+                        nestedScrollView.isVisible = true
+                        rvBreedList.isVisible = true
+
+                        includeEmptyList.isVisible = false
+                        includeError.isVisible = false
+                        includeLoading.isVisible = false
+                    }
+                }
+            }
         }
     }
 
