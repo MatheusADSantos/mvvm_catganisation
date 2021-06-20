@@ -32,4 +32,14 @@ internal class BreedListViewModel(val getBreedListUseCase: GetBreedListUseCase) 
                 )
         }
     }
+
+    fun filterList(countryId: String): List<BreedItemVO> {
+        return breedList.value?.filter {
+            it.country_code == countryId
+        } ?: emptyList()
+    }
+
+    fun getOriginalList(): List<BreedItemVO> {
+        return breedList.value ?: emptyList()
+    }
 }
