@@ -6,4 +6,5 @@ apply from: "$rootDir/android.gradle"
 
 dependencies {
     implementation "com.google.android.material:material:$versions.material"
+    implementation "com.airbnb.android:lottie:$versions.lottie"
 }

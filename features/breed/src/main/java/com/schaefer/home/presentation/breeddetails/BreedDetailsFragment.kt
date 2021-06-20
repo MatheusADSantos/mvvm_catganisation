@@ -1,5 +1,6 @@
 package com.schaefer.home.presentation.breeddetails
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -68,6 +69,7 @@ internal class BreedDetailsFragment : Fragment() {
 
         with(binding.toolbar) {
             title = breedItemVO?.name
+            setTitleTextColor(Color.WHITE)
             navigationIcon =
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_back_24)
             setNavigationOnClickListener {
@@ -77,7 +79,7 @@ internal class BreedDetailsFragment : Fragment() {
 
         Glide.with(binding.root.context)
             .load(breedItemVO?.imageResponse?.url)
-            .into(binding.ivBreedDetailsImage)
+            .into(binding.ivBreedItem)
     }
 
     companion object {
