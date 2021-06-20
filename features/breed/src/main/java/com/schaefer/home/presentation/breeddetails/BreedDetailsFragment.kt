@@ -77,7 +77,7 @@ internal class BreedDetailsFragment : Fragment() {
 
         Glide.with(binding.root.context)
             .load(breedItemVO?.imageResponse?.url)
-            .into(binding.ivBreedDetailsImage)
+            .into(binding.ivBreedItem)
     }
 
     companion object {
