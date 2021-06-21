@@ -1,26 +1,16 @@
 package com.schaefer.home.presentation.wikipedia
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.schaefer.home.R
 import com.schaefer.home.databinding.FragmentWikipediaBinding
-import com.schaefer.home.presentation.model.BreedItemVO
-import com.schaefer.navigation.ContainerSingleActivity
-import org.koin.android.ext.android.inject
-import android.webkit.WebView
-
-import android.app.ProgressDialog
-
-import android.webkit.WebViewClient
-import androidx.core.view.isVisible
-import java.lang.Exception
-
 
 private const val ARG_URL = "url"
 private const val ARG_BREED_NAME = "name"
@@ -68,32 +58,28 @@ class WikipediaFragment : Fragment() {
     }
 
     private fun startWebView() {
-        binding.progressBarWikipedia.isVisible = true
-        binding.webViewWikipedia.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                view.loadUrl(url)
-                return true
+        showLoading()
+        with(binding) {
+            webViewWikipedia.webViewClient = WebViewClient(::showLoading)
+
+            webViewWikipedia.settings.apply {
+                setJavaScriptEnabled(true)
+                loadWithOverviewMode = true
+                useWideViewPort = true
+                builtInZoomControls = true
             }
 
-            override fun onLoadResource(view: WebView, url: String) {
-                binding.progressBarWikipedia.isVisible = true
-            }
-
-            override fun onPageFinished(view: WebView, url: String) {
-                binding.progressBarWikipedia.isVisible = false
-            }
+            webViewWikipedia.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
+            webViewWikipedia.isScrollbarFadingEnabled = false
+            urlWikipedia?.let { webViewWikipedia.loadUrl(it) }
         }
+    }
 
-        binding.webViewWikipedia.settings.apply {
-            setJavaScriptEnabled(true)
-            loadWithOverviewMode = true
-            useWideViewPort = true
-            builtInZoomControls = true
+    private fun showLoading(isToShowLoading: Boolean = true) {
+        with(binding) {
+            webViewWikipedia.isVisible = isToShowLoading.not()
+            progressBarWikipedia.isVisible = isToShowLoading
         }
-
-        binding.webViewWikipedia.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
-        binding.webViewWikipedia.isScrollbarFadingEnabled = false
-        urlWikipedia?.let { binding.webViewWikipedia.loadUrl(it) }
     }
 
     companion object {
