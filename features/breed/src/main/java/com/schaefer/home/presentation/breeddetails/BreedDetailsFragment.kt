@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
 import com.schaefer.core.extension.layoutManagerFactory
 import com.schaefer.home.R
 import com.schaefer.home.databinding.FragmentBreedDetailsBinding
@@ -18,6 +19,7 @@ import com.schaefer.home.presentation.wikipedia.WikipediaFragment
 import com.schaefer.navigation.ContainerSingleActivity
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 private const val ARG_BREED_ITEM_VO = "breed_item_vo"
 
@@ -68,6 +70,15 @@ internal class BreedDetailsFragment : Fragment() {
             rvBreedDetailsLevels.apply {
                 layoutManager = layoutManagerFactory(1)
                 adapter = characteristicsAdapter
+            }
+
+            breedItemVO?.country_code.let{ countryId ->
+                chipGroup.addView(
+                    Chip(binding.root.context).apply {
+                        text = resources.getString(R.string.country_code_chip, countryId)
+                        isClickable = false
+                    }
+                )
             }
         }
 

@@ -18,12 +18,8 @@ import com.schaefer.home.presentation.model.BreedItemVO
 import com.schaefer.navigation.ContainerSingleActivity
 import com.schaefer.navigation.breed.BreedNavigation
 import com.schaefer.navigation.login.LoginNavigation
-import com.schaefer.uishared.databinding.LayoutErrorBinding
-import hollowsoft.country.Country
-import hollowsoft.country.extension.all
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 private const val ARG_COLUMN_COUNT = "column_count"
 
@@ -39,7 +35,6 @@ internal class BreedListFragment : Fragment() {
     private val containerSingleActivity: ContainerSingleActivity by inject()
 
     private lateinit var binding: FragmentBreedListBinding
-    private lateinit var bindingError: LayoutErrorBinding
     private lateinit var countryDialogFragment: CountryDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +51,6 @@ internal class BreedListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentBreedListBinding.inflate(inflater, container, false)
-        bindingError = LayoutErrorBinding.bind(binding.root)
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -102,11 +96,13 @@ internal class BreedListFragment : Fragment() {
                 editTextBreedListCountry.setText(R.string.common_all)
                 breedListViewModel.getOriginalList()
             }
+
+            includeError.btnRetry.setOnClickListener {
+                breedListViewModel.getBreedList()
+            }
         }
 
-        bindingError.btnRetry.setOnClickListener {
-            breedListViewModel.getBreedList()
-        }
+
     }
 
     private fun navigateLogout() {
@@ -124,28 +120,28 @@ internal class BreedListFragment : Fragment() {
             when (it) {
                 BreedListState.Loading -> {
                     with(binding) {
-                        includeLoading.isVisible = true
+                        includeLoading.root.isVisible = true
 
-                        includeError.isVisible = false
+                        includeError.root.isVisible = false
                         nestedScrollView.isVisible = false
                     }
                 }
                 BreedListState.EmptyList -> {
                     with(binding) {
                         nestedScrollView.isVisible = true
-                        includeEmptyList.isVisible = true
+                        includeEmptyList.root.isVisible = true
 
-                        includeError.isVisible = false
+                        includeError.root.isVisible = false
                         rvBreedList.isVisible = false
-                        includeLoading.isVisible = false
+                        includeLoading.root.isVisible = false
                     }
                 }
                 BreedListState.Error -> {
                     with(binding) {
-                        includeError.isVisible = true
+                        includeError.root.isVisible = true
 
                         nestedScrollView.isVisible = false
-                        includeLoading.isVisible = false
+                        includeLoading.root.isVisible = false
                     }
                 }
                 is BreedListState.HasContent -> {
@@ -154,9 +150,9 @@ internal class BreedListFragment : Fragment() {
                         nestedScrollView.isVisible = true
                         rvBreedList.isVisible = true
 
-                        includeEmptyList.isVisible = false
-                        includeError.isVisible = false
-                        includeLoading.isVisible = false
+                        includeEmptyList.root.isVisible = false
+                        includeError.root.isVisible = false
+                        includeLoading.root.isVisible = false
                     }
                 }
             }

@@ -3,11 +3,6 @@ plugins {
     id 'kotlin-android'
 }
 apply from: "$rootDir/android.gradle"
-android {
-    buildFeatures {
-        viewBinding true
-    }
-}
 
 dependencies {
     implementation project(path: ':libraries:navigation')
