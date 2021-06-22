@@ -9,6 +9,7 @@ ext.versions = [
         //gradle plugins
         gradle                 : '4.1.3',
         kotlin                 : '1.5.10',
+        gradle_plugin          : "1.5.10",
         jvmTarget              : '1.8',
 
         ktx                    : '1.3.2',
@@ -26,12 +27,15 @@ ext.versions = [
         //Architecture components
         navigation             : '2.2.2',
         nav_args               : '2.3.1',
-        lifecycle              : '2.2.0',
+        lifecycle              : '2.3.1',
         lifecycleJava          : '2.3.1',
         paging3                : '3.0.0',
 
-        //RxJava
+        //Rx
         rxjava                 : '3.0.0',
+        rx_android             : "2.0.1",
+        rx_kotlin              : "3.0.1",
+        rx_adapter             : "2.9.0",
 
         //Logging
         timber                 : '4.7.1',
@@ -42,7 +46,6 @@ ext.versions = [
         //Network
         okhttp                 : '4.7.2',
         okhttp_interceptor     : '4.9.0',
-        rx_retrofit            : '2.9.0',
         retrofit               : '2.9.0',
 
         //Tests
@@ -63,7 +66,7 @@ ext.versions = [
         //UI
         vector_drawable        : '1.1.0',
         legacy_support         : '1.0.0',
-        recycler_view          : '1.2.0-beta01',
+        recycler_view          : '1.2.1',
         swipe_refresh          : '1.1.0',
         constraint_layout      : '2.0.4',
         appcompat              : '1.2.0',
@@ -75,10 +78,27 @@ ext.versions = [
         cardview               : '1.0.0',
         material               : '1.3.0',
 
-
         //Lottie
         lottie                 : '3.7.0',
 
         //Room
         room                   : "2.3.0",
+
+        //Google Services
+        google_services        : "4.3.8",
+
+        //Firebase
+        firebase_bom           : "28.1.0",
+        firebase_auth          : "19.0.0",
+        firebase_common_ktx    : "19.5.0",
+        firebase_auth_ktx      : "21.0.1",
+
+        //RatingBar
+        rating_bar             : "1.4.0",
+
+        //Country
+        country                : "1.0.3",
+
+        //Annotation
+        annotation             : "1.2.0",
 ]

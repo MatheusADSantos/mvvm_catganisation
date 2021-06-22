@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.schaefer.home.databinding.LayoutBreedItemBinding
-import com.schaefer.home.presentation.breedlist.BreedListDiffCallback
 
 import com.schaefer.home.presentation.model.BreedItemVO
 

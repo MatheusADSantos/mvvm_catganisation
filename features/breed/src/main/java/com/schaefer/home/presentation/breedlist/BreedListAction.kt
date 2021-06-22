@@ -1,6 +1,9 @@
 package com.schaefer.home.presentation.breedlist
 
 import com.schaefer.core.presentation.ViewModelAction
+import com.schaefer.home.presentation.model.BreedItemVO
 
-class BreedListAction : ViewModelAction {
+internal sealed class BreedListAction : ViewModelAction {
+    data class NavigateToBreedDetails(val itemVO: BreedItemVO): BreedListAction()
+    object NavigateToLogout: BreedListAction()
 }

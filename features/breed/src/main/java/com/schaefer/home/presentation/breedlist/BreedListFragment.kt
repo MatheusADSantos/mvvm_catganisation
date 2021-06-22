@@ -14,7 +14,6 @@ import com.schaefer.home.presentation.breeddetails.BreedDetailsFragment
 import com.schaefer.home.presentation.breedlist.adapter.BreedListAdapter
 import com.schaefer.home.presentation.country.CountryDialogFragment
 import com.schaefer.home.presentation.logout.logoutAlert
-import com.schaefer.home.presentation.model.BreedItemVO
 import com.schaefer.navigation.ContainerSingleActivity
 import com.schaefer.navigation.breed.BreedNavigation
 import com.schaefer.navigation.login.LoginNavigation
@@ -25,8 +24,11 @@ private const val ARG_COLUMN_COUNT = "column_count"
 
 internal class BreedListFragment : Fragment() {
     private var columnCount = 1
+
     private val breedListRecyclerViewAdapter by lazy {
-        BreedListAdapter(::openBreedDetails)
+        BreedListAdapter {
+            breedListViewModel.navigateToDetails(it)
+        }
     }
 
     private val breedListViewModel: BreedListViewModel by viewModel()
@@ -73,7 +75,9 @@ internal class BreedListFragment : Fragment() {
             toolbar.menu.findItem(R.id.action_logout).setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.action_logout -> {
-                        requireContext().logoutAlert(::navigateLogout)
+                        requireContext().logoutAlert{
+                            breedListViewModel.navigateToLogout()
+                        }
                         false
                     }
                     else -> true
@@ -101,17 +105,6 @@ internal class BreedListFragment : Fragment() {
                 breedListViewModel.getBreedList()
             }
         }
-
-
-    }
-
-    private fun navigateLogout() {
-        parentFragmentManager.beginTransaction()
-            .replace(
-                containerSingleActivity.containerId,
-                loginNavigation.getLogoutFragment(shouldLogout = true)
-            )
-            .commit()
     }
 
     private fun setupObservers() {
@@ -157,17 +150,29 @@ internal class BreedListFragment : Fragment() {
                 }
             }
         }
-    }
 
-    private fun openBreedDetails(itemVO: BreedItemVO) {
-        breedNavigation.getBreedDetailsFragment(itemVO)?.let {
-            parentFragmentManager.beginTransaction()
-                .add(
-                    containerSingleActivity.containerId,
-                    it
-                )
-                .addToBackStack(BreedDetailsFragment::class.simpleName)
-                .commit()
+        breedListViewModel.action.observe(viewLifecycleOwner) { breedListAction ->
+            when (breedListAction) {
+                is BreedListAction.NavigateToBreedDetails -> {
+                    breedNavigation.getBreedDetailsFragment(breedListAction.itemVO)?.let {
+                        parentFragmentManager.beginTransaction()
+                            .add(
+                                containerSingleActivity.containerId,
+                                it
+                            )
+                            .addToBackStack(BreedDetailsFragment::class.simpleName)
+                            .commit()
+                    }
+                }
+                BreedListAction.NavigateToLogout -> {
+                    parentFragmentManager.beginTransaction()
+                        .replace(
+                            containerSingleActivity.containerId,
+                            loginNavigation.getLogoutFragment(shouldLogout = true)
+                        )
+                        .commit()
+                }
+            }
         }
     }
 
