@@ -1,4 +1,4 @@
-package com.schaefer.home.presentation.breedlist
+package com.schaefer.home.presentation.breedlist.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.schaefer.home.presentation.model.BreedItemVO

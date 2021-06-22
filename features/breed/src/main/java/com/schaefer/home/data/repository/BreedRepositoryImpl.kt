@@ -8,11 +8,14 @@ import com.schaefer.home.domain.model.BreedItemDomain
 import com.schaefer.home.domain.repository.BreedRepository
 import io.reactivex.rxjava3.core.Single
 
-internal class BreedRepositoryImpl(private val remoteDataSource: BreedRemoteDataSource) : BreedRepository {
+internal class BreedRepositoryImpl(
+    private val remoteDataSource: BreedRemoteDataSource
+) : BreedRepository {
+
     override suspend fun getBreedList(): Single<List<BreedItemDomain>> {
         return safeApiCall {
             remoteDataSource.getBreedList()
-        }.let { result->
+        }.let { result ->
             when (result) {
                 is ResultWrapper.Success -> result.value.map { breedResponse ->
                     breedResponse.map {
