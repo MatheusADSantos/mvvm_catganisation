@@ -7,7 +7,7 @@ In the first screen it's possible to see a list of cats and filter by country! I
 When you click on a card you'll see all details about that cat like image, name, description, country code, the temperament and a shortcut Wikipedia's link of the particular breed. 
 
 ## Video
-
+[![Catganisation](https://user-images.githubusercontent.com/10122196/122848316-af913080-d2df-11eb-9297-3c11c023c33a.png)](https://youtu.be/MVaWX4qbYSU)
 
 ## Architecture
 This app was built using the Clean Architecture + MVVM.
