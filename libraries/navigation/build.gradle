@@ -3,8 +3,3 @@ plugins {
     id 'kotlin-android'
 }
 apply from: "$rootDir/android.gradle"
-
-dependencies {
-    //Android
-    implementation "androidx.core:core-ktx:$versions.ktx"
-}

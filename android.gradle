@@ -32,10 +32,21 @@ android {
 
     buildFeatures {
         viewBinding true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
+        kotlinCompilerVersion versions.kotlin_compile_plugin
     }
 }
 
 dependencies {
+    implementation "androidx.compose.ui:ui:$versions.compose"
+    implementation "androidx.compose.material:material:$versions.compose"
+    implementation "androidx.compose.ui:ui-tooling-preview:$versions.compose"
+    implementation "androidx.activity:activity-compose:$versions.compose_activity"
+    debugImplementation "androidx.compose.ui:ui-tooling:$versions.compose"
+
     //Android
     implementation "androidx.core:core-ktx:$versions.ktx"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
