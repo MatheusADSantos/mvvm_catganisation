@@ -16,3 +16,4 @@ include ':libraries:uishared'
 //Features
 include ':features:login'
 include ':features:breed'
+include ':features:wikipedia'
