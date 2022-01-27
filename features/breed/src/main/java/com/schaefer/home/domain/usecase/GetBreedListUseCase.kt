@@ -1,6 +1,6 @@
 package com.schaefer.home.domain.usecase
 
-import com.schaefer.home.domain.mapper.toVO
+import com.schaefer.home.presentation.mapper.toVO
 import com.schaefer.home.domain.repository.BreedRepository
 import com.schaefer.home.presentation.model.BreedItemVO
 import io.reactivex.rxjava3.core.Single

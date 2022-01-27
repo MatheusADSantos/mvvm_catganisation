@@ -3,7 +3,7 @@ package com.schaefer.home.stub
 import com.google.gson.Gson
 import com.schaefer.home.data.mapper.toDomain
 import com.schaefer.home.data.model.BreedResponse
-import com.schaefer.home.domain.mapper.toVO
+import com.schaefer.home.presentation.mapper.toVO
 import com.schaefer.home.domain.model.BreedItemDomain
 
 internal object BreedStub {
