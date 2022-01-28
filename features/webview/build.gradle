@@ -8,6 +8,7 @@ apply from: "$rootDir/android.gradle"
 dependencies {
     implementation project(path: ':libraries:core')
     implementation project(path: ':libraries:uishared')
+    implementation project(path: ':libraries:navigation')
 
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
 }

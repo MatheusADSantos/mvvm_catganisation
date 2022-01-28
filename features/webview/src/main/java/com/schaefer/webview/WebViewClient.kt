@@ -1,9 +1,9 @@
-package com.schaefer.wikipedia
+package com.schaefer.webview
 
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
-data class WebViewClient (val showLoading: (Boolean) -> Unit): WebViewClient() {
+internal data class WebViewClient (val showLoading: (Boolean) -> Unit): WebViewClient() {
     override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
         view.loadUrl(url)
         return true
