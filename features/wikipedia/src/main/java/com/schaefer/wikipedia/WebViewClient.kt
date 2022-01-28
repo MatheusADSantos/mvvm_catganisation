@@ -1,4 +1,4 @@
-package com.schaefer.home.presentation.wikipedia
+package com.schaefer.wikipedia
 
 import android.webkit.WebView
 import android.webkit.WebViewClient

@@ -4,3 +4,10 @@ plugins {
     id 'kotlin-parcelize'
 }
 apply from: "$rootDir/android.gradle"
+
+dependencies {
+    implementation project(path: ':libraries:core')
+    implementation project(path: ':libraries:uishared')
+
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+}

@@ -1,5 +1,6 @@
-package com.schaefer.home.presentation.wikipedia
+package com.schaefer.wikipedia
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.schaefer.home.R
-import com.schaefer.home.databinding.FragmentWikipediaBinding
+import com.schaefer.wikipedia.databinding.FragmentWikipediaBinding
 
 private const val ARG_URL = "url"
 private const val ARG_BREED_NAME = "name"
@@ -57,13 +57,14 @@ class WikipediaFragment : Fragment() {
         startWebView()
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun startWebView() {
         showLoading()
         with(binding) {
             webViewWikipedia.webViewClient = WebViewClient(::showLoading)
 
             webViewWikipedia.settings.apply {
-                setJavaScriptEnabled(true)
+                javaScriptEnabled = true
                 loadWithOverviewMode = true
                 useWideViewPort = true
                 builtInZoomControls = true
