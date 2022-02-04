@@ -5,12 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.schaefer.core.presentation.viewmodel.ViewModelActionState
 import com.schaefer.home.domain.usecase.GetBreedListUseCase
 import com.schaefer.home.presentation.model.BreedItemVO
+import com.schaefer.home.presentation.model.CharacteristicItemVO
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 internal class BreedListViewModel(
-    val getBreedListUseCase: GetBreedListUseCase
+    val getBreedListUseCase: GetBreedListUseCase<BreedItemVO>
 ) : ViewModelActionState<BreedListState, BreedListAction>(BreedListState.Loading) {
 
     private val _breedList = MutableLiveData<List<BreedItemVO>>()
@@ -38,8 +40,7 @@ internal class BreedListViewModel(
     fun getBreedList() {
         setState(BreedListState.Loading)
         viewModelScope.launch {
-            getBreedListUseCase()
-                .subscribeOn(Schedulers.io())
+            getBreedListUseCase.observeList().subscribeOn(Schedulers.io())
                 .subscribeBy(
                     onError = { handleError(it) },
                     onSuccess = { handleSuccess(it) },
@@ -48,7 +49,7 @@ internal class BreedListViewModel(
     }
 
     private fun handleError(it: Throwable) {
-        it.printStackTrace()
+        Timber.e(it)
         setState(BreedListState.Error)
     }
 

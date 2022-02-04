@@ -15,11 +15,10 @@ import com.schaefer.home.R
 import com.schaefer.home.databinding.FragmentBreedDetailsBinding
 import com.schaefer.home.presentation.breeddetails.adapter.CharacteristicsListAdapter
 import com.schaefer.home.presentation.model.BreedItemVO
-import com.schaefer.home.presentation.wikipedia.WikipediaFragment
 import com.schaefer.navigation.ContainerSingleActivity
+import com.schaefer.navigation.webview.WebViewNavigation
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 private const val ARG_BREED_ITEM_VO = "breed_item_vo"
 
@@ -32,6 +31,7 @@ internal class BreedDetailsFragment : Fragment() {
     }
     private val breedDetailsViewModel: BreedDetailsViewModel by viewModel()
     private val containerSingleActivity: ContainerSingleActivity by inject()
+    private val webViewNavigation: WebViewNavigation by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,8 +100,8 @@ internal class BreedDetailsFragment : Fragment() {
             breedItemVO?.let {
                 parentFragmentManager.beginTransaction().add(
                     containerSingleActivity.containerId,
-                    WikipediaFragment.newInstance(it.wikipedia_url, it.name)
-                ).addToBackStack(WikipediaFragment::class.simpleName).commit()
+                    webViewNavigation.getFragment(it.wikipedia_url, it.name)
+                ).addToBackStack(webViewNavigation.getFragmentName()).commit()
             }
         }
     }

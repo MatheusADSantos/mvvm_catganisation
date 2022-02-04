@@ -1,4 +1,4 @@
-package com.schaefer.home.domain.mapper
+package com.schaefer.home.presentation.mapper
 
 import com.schaefer.home.domain.model.BreedItemDomain
 import com.schaefer.home.presentation.model.BreedItemVO

@@ -17,9 +17,11 @@ internal class BreedRepositoryImpl(
             remoteDataSource.getBreedList()
         }.let { result ->
             when (result) {
-                is ResultWrapper.Success -> result.value.map { breedResponse ->
-                    breedResponse.map {
-                        it.toDomain()
+                is ResultWrapper.Success -> {
+                    result.value.map { breedResponse ->
+                        breedResponse.map {
+                            it.toDomain()
+                        }
                     }
                 }
                 is ResultWrapper.GenericCodeError -> Single.error(result.error)

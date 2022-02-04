@@ -9,5 +9,4 @@ internal class BreedRemoteDataSourceImpl(val theCatAPI: TheCatAPI): BreedRemoteD
     override fun getBreedList(): Single<BreedResponse> {
         return theCatAPI.getBreeds()
     }
-
 }

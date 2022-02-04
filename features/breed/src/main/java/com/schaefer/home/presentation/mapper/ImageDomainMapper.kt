@@ -1,4 +1,4 @@
-package com.schaefer.home.domain.mapper
+package com.schaefer.home.presentation.mapper
 
 import com.schaefer.home.domain.model.ImageDomain
 import com.schaefer.home.presentation.model.ImageVO
