@@ -5,6 +5,7 @@ import com.schaefer.catganisation.di.appModule
 import com.schaefer.core.di.networkModule
 import com.schaefer.home.di.breedModule
 import com.schaefer.login.di.loginModule
+import com.schaefer.webview.di.webViewModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -26,6 +27,7 @@ class CatganisationApplication: Application() {
                     networkModule,
                     loginModule,
                     breedModule,
+                    webViewModule,
                 )
             )
         }

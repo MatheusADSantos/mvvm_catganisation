@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
 }
+apply from: "$rootDir/android.gradle"
 
 android {
     compileSdkVersion versions.compileSdk
@@ -46,13 +47,12 @@ dependencies {
     //Features
     implementation project(path: ':features:login')
     implementation project(path: ':features:breed')
+    implementation project(path: ':features:webview')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 
     //Android
-    implementation "androidx.core:core-ktx:$versions.ktx"
-    implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "androidx.fragment:fragment-ktx:$versions.fragment"
     implementation "androidx.activity:activity-ktx:$versions.activity"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"

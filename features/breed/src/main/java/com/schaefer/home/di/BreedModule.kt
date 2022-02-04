@@ -6,11 +6,14 @@ import com.schaefer.home.data.datasource.BreedRemoteDataSourceImpl
 import com.schaefer.home.data.repository.BreedRepositoryImpl
 import com.schaefer.home.domain.repository.BreedRepository
 import com.schaefer.home.domain.usecase.GetBreedListUseCase
-import com.schaefer.home.domain.usecase.GetCharacteristicsListUseCase
+import com.schaefer.home.domain.usecase.GetCharacteristicsUseCase
 import com.schaefer.home.navigation.BreedNavigationImpl
-import com.schaefer.home.presentation.breeddetails.BreedDetailsFragment
 import com.schaefer.home.presentation.breeddetails.BreedDetailsViewModel
 import com.schaefer.home.presentation.breedlist.BreedListViewModel
+import com.schaefer.home.presentation.breedlist.usecase.GetBreedListUseCaseImpl
+import com.schaefer.home.presentation.breedlist.usecase.GetCharacteristicsUseCaseImpl
+import com.schaefer.home.presentation.model.BreedItemVO
+import com.schaefer.home.presentation.model.CharacteristicItemVO
 import com.schaefer.navigation.breed.BreedNavigation
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,13 +28,15 @@ val breedModule = module {
 
     factory<BreedRepository> { BreedRepositoryImpl(remoteDataSource = get()) }
 
-    factory { GetBreedListUseCase(repository = get()) }
+    factory<GetBreedListUseCase<BreedItemVO>> { GetBreedListUseCaseImpl(repository = get()) }
 
-    factory { GetCharacteristicsListUseCase() }
+    factory<GetCharacteristicsUseCase<BreedItemVO, CharacteristicItemVO>> {
+        GetCharacteristicsUseCaseImpl()
+    }
 
     viewModel { BreedListViewModel(getBreedListUseCase = get()) }
 
-    viewModel { BreedDetailsViewModel(getCharacteristicsListUseCase = get()) }
+    viewModel { BreedDetailsViewModel(getCharacteristicsUseCase = get()) }
 
     factory<BreedNavigation> { BreedNavigationImpl() }
 }

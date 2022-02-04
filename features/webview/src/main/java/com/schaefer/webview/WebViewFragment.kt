@@ -1,5 +1,6 @@
-package com.schaefer.home.presentation.wikipedia
+package com.schaefer.webview
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,24 +10,23 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.schaefer.home.R
-import com.schaefer.home.databinding.FragmentWikipediaBinding
+import com.schaefer.webview.databinding.FragmentWikipediaBinding
 
 private const val ARG_URL = "url"
 private const val ARG_BREED_NAME = "name"
 
-class WikipediaFragment : Fragment() {
+internal class WebViewFragment : Fragment() {
 
     private lateinit var binding: FragmentWikipediaBinding
-    private var urlWikipedia: String? = null
-    private var breedName: String? = null
+    private var urlPage: String? = null
+    private var toolbarTitle: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            urlWikipedia = it.getString(ARG_URL)
-            breedName = it.getString(ARG_BREED_NAME)
+            urlPage = it.getString(ARG_URL)
+            toolbarTitle = it.getString(ARG_BREED_NAME)
         }
     }
 
@@ -43,7 +43,7 @@ class WikipediaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             toolbarWikipedia.apply {
-                title = breedName.orEmpty()
+                title = toolbarTitle.orEmpty()
 
                 navigationIcon = ContextCompat.getDrawable(
                     requireContext(),
@@ -57,13 +57,14 @@ class WikipediaFragment : Fragment() {
         startWebView()
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun startWebView() {
         showLoading()
         with(binding) {
             webViewWikipedia.webViewClient = WebViewClient(::showLoading)
 
             webViewWikipedia.settings.apply {
-                setJavaScriptEnabled(true)
+                javaScriptEnabled = true
                 loadWithOverviewMode = true
                 useWideViewPort = true
                 builtInZoomControls = true
@@ -71,7 +72,7 @@ class WikipediaFragment : Fragment() {
 
             webViewWikipedia.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
             webViewWikipedia.isScrollbarFadingEnabled = false
-            urlWikipedia?.let { webViewWikipedia.loadUrl(it) }
+            urlPage?.let { webViewWikipedia.loadUrl(it) }
         }
     }
 
@@ -83,11 +84,11 @@ class WikipediaFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(url: String, breedName: String): WikipediaFragment {
-            return WikipediaFragment().apply {
+        fun newInstance(url: String, toolbarTitle: String): WebViewFragment {
+            return WebViewFragment().apply {
                 arguments = bundleOf(
                     ARG_URL to url,
-                    ARG_BREED_NAME to breedName
+                    ARG_BREED_NAME to toolbarTitle
                 )
             }
         }
