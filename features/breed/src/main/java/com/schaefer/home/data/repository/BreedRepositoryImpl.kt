@@ -24,7 +24,7 @@ internal class BreedRepositoryImpl(
                         }
                     }
                 }
-                is ResultWrapper.GenericCodeError -> Single.error(result.error)
+                is ResultWrapper.GenericCodeError -> Single.error(result.error!!)
                 is ResultWrapper.GenericError -> Single.error(result.exception)
                 is ResultWrapper.NetworkError -> Single.error(result.exception)
             }
