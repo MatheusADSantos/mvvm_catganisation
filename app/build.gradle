@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
 }
 apply from: "$rootDir/android.gradle"
@@ -32,10 +31,6 @@ android {
     buildFeatures {
         viewBinding true
     }
-
-    androidExtensions {
-        experimental = true
-    }
 }
 
 dependencies {
@@ -55,7 +50,7 @@ dependencies {
     //Android
     implementation "androidx.fragment:fragment-ktx:$versions.fragment"
     implementation "androidx.activity:activity-ktx:$versions.activity"
-    implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
 
     //Square
     implementation "com.jakewharton.timber:timber:$versions.timber"
