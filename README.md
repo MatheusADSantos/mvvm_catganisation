@@ -1,3 +1,8 @@
+# DEPRECATED
+
+This is no longer supported, the API has changed and they don't send the image url using the same endpoint.
+There is no plan to fix this app to respond to this change.
+
 # Catganisation
 
 Cats need your help, and with this app everyone can login and see beautiful cats, because they are so amazing.
