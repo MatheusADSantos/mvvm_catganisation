@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "126645578349",
+    "project_id": "mvvm-catganisation",
+    "storage_bucket": "mvvm-catganisation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126645578349:android:2c093174df947376eeed64",
+        "android_client_info": {
+          "package_name": "com.schaefer.catganisation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126645578349-ugnoi1a2f4r0cifselk2njg14rtvvnmb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_aQMVPVnyrSxjWVMYkCccQSQd3Ax6pQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126645578349-ugnoi1a2f4r0cifselk2njg14rtvvnmb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
